@@ -1,0 +1,5 @@
+1. admin@admin:admin (###), admin
+2. p.smirnov@blog.skillbox:qwerty123 (###), moderator
+4. i.ivanov@blog.skillbox:123456 (###), registered
+5. d.sidorov@blog.skillbox:abc123 (###), registered
+6. v.kuznetsov@blog.skillbox:password (###), unregistered
