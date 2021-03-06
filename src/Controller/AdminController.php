@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Model\Comment;
 use App\Model\Roles;
 use App\Model\Roles_user;
 use App\Model\User;
@@ -57,6 +58,8 @@ class AdminController
         if (isUserRole('administrator') !== false) {
             $user = User::find((int) $_POST['user_id'] ?? 0);
 
+            //TODO: добавить, чтобы не меняли параметры для "суперпользователя"
+
             if (isset($_POST['is-banned']) && $_POST['is-banned'] === 'true') {
                 $user->is_banned = 1;
             }
@@ -94,4 +97,31 @@ class AdminController
         }
         header('Location: /');
     }
+
+    public function adminNumComments()
+    {
+        if (isUserRole('administrator') !== false || isUserRole('moderator') !== false) {
+            return json_encode(Comment::where('is_moderated', '=', 0)->count());
+        }
+        header('Location: /');
+    }
+
+    public function adminAllComments()
+    {
+        if (isUserRole('administrator') !== false || isUserRole('moderator') !== false) {
+            return json_encode(Comment::select('comments.id', 'comment', 'create_date', 'is_moderated', 'users.name', 'posts.header')
+                ->leftJoin('users', 'comments.users_id', '=', 'users.id')
+                ->leftJoin('posts', 'comments.posts_id', '=', 'posts.id')
+                ->where(function (Builder $query) {
+                    if (isset($_POST['type']) && $_POST['type'] == 1) {
+                        return $query->where('is_moderated', '=', 0);
+                    }
+                    return $query;
+                })
+                ->get()
+            );
+        }
+        header('Location: /');
+    }
+
 }

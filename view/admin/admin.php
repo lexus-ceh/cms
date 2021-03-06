@@ -48,15 +48,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/admin_header.php';
                     </h6>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" id="all-comments" href="#">
                                 <span data-feather="message-square"></span>
                                 Все
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" id="unapproved-comments" href="#">
                                 <span data-feather="alert-triangle"></span>
-                                Ожидают проверки<span class="badge bg-primary">99+</span>
+                                Ожидают проверки<span class="badge bg-primary" id="comment-badge"></span>
                             </a>
                         </li>
                     </ul>
@@ -68,7 +68,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/admin_header.php';
                     </h6>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">
+                            <a class="nav-link" id="user-manager" aria-current="page" href="#">
                                 <span data-feather="users"></span>Менеджер пользователей
                             </a>
                         </li>

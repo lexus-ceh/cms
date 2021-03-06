@@ -36,9 +36,13 @@ $router->get('/admin', AdminController::class . '@admin');
 
 $router->get('/pages/*', PagesController::class . '@pages');
 
+// =============== API =====================
+
 $router->post('/admin/api/users', AdminController::class . '@adminAllUsers');
 $router->post('/admin/api/roles', AdminController::class . '@adminAllRoles');
 $router->post('/admin/api/user-change', AdminController::class . '@adminUserChange');
+$router->post('/admin/api/num-comments', AdminController::class . '@adminNumComments');
+$router->post('/admin/api/comments', AdminController::class . '@adminAllComments');
 
 // ==============================================================
 

@@ -10,11 +10,8 @@
 const sidebarMenu = document.querySelector('#sidebarMenu');
 let navItem = sidebarMenu.getElementsByClassName('nav-link');
 
-
-
-
-
-
+let commentBadge = document.getElementById('comment-badge');
+getNumberUnapprovedComments(commentBadge);
 
 function setAllInactive()
 {
@@ -32,8 +29,16 @@ callbackClickOnItem = function () {
   adminHeader.innerText = this.innerText;
   const content = document.getElementById('admin-content');
 
-  if (this.innerText === 'Менеджер пользователей') {
+  if (this.id === 'user-manager') {
     drawAllUsers(content);
+  }
+
+  if (this.id === 'all-comments') {
+    drawComments(content, 0);
+  }
+
+  if (this.id === 'unapproved-comments') {
+    drawComments(content, 1);
   }
 
   if (this.innerText === 'Общие настройки') {
