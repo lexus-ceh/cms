@@ -2,11 +2,6 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/header.php';
 
-
-// echo '<h3>Это шаблон view/index.php</h3>';
-
-// echo $data['title'] ?? '';
-
 ?>
 
 <main class="container">
@@ -89,18 +84,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/header.php';
 
             </div>
 
-
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
-                    <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>
+            <? $data->render('paginator-posts'); ?>
 
         </div>
 

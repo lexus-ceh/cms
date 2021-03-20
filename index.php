@@ -48,6 +48,7 @@ $router->post('/admin/api/comments', AdminController::class . '@adminAllComments
 
 $router->get('/test-pagination', Controller::class . '@testPagination');
 $router->get('/test-tabs', Controller::class . '@testTabs');
+$router->get('/test-accordion', Controller::class . '@testAccordion');
 
 $router->get('/personal/messages/show', function () {
     return view('personal.messages.show', ['title' => 'Show Page']);
