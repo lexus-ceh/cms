@@ -36,6 +36,10 @@ $router->get('/admin', AdminController::class . '@admin');
 
 $router->get('/pages/*', PagesController::class . '@pages');
 
+// ============== ADMIN PANEL 2 ==================
+
+$router->get('/admin2/*', AdminController::class . '@admin2');
+
 // =============== API =====================
 
 $router->post('/admin/api/users', AdminController::class . '@adminAllUsers');

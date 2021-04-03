@@ -20,6 +20,19 @@ class AdminController
         header('Location: /');
     }
 
+    public function admin2($item)
+    {
+        $data[] = $item;
+        if (isUserRole('administrator') !== false || isUserRole('moderator') !== false) {
+            if($item == 'users') {
+                $users = $this->adminAllUsers();
+                $data[] = $users;
+            }
+            return view('admin.admin2', $data);
+        }
+        header('Location: /');
+    }
+
     public function adminAllUsers()
     {
         if (isUserRole('administrator') !== false) {
@@ -29,7 +42,7 @@ class AdminController
             } else {
                 $query = User::select('users.id', 'email', 'users.name as name', 'password', 'users.is_banned');
             }
-            return json_encode(($query
+            return ($query
                 ->selectRaw('GROUP_CONCAT(roles.name) as role')
                 ->leftJoin('roles_users', 'users.id', '=', 'roles_users.users_id')
                 ->leftJoin('roles', 'roles.id', '=', 'roles_users.roles_id')
@@ -42,7 +55,7 @@ class AdminController
                     }
                 })
                 ->groupBy('users.id')
-                ->get()));
+                ->get());
         }
         header('Location: /');
     }
