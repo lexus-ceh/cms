@@ -16,7 +16,13 @@ function getNumberUnapprovedComments(commentBadge)
         url: "/admin/api/num-comments",
         method: "POST",
     });
-    promise.then(count => (
-        commentBadge.innerText = count
-    ));
+    promise.then(count => {
+        if (Number(count) > 0) {
+            commentBadge.innerText = count;
+        }
+    });
+    // promise.then(count => (
+    //     console.log(count)
+    //     commentBadge.innerText = count
+    // ));
 }

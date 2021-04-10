@@ -1,5 +1,8 @@
 <?php
 
+use App\Exception\ItemNotFoundException;
+use App\Exception\NotFoundException;
+
 require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/admin_header.php';
 $adminMenuObj = new \App\AdminMenu();
 $adminMenu = $adminMenuObj->getMenu();
@@ -20,7 +23,7 @@ $adminMenu = $adminMenuObj->getMenu();
                                 <li class="nav-item">
                                     <a class="nav-link <?= explode('/', $item['link'])[2] == $data[0] ? 'active' : '' ?>" href="<?= $item['link'] ?>">
                                         <span data-feather="<?= $item['data-feather'] ?>"></span>
-                                        <?= $item['title'] ?>
+                                        <?= $item['title'] ?> <?= $item['title'] === 'Ожидают проверки'? '<span class="badge bg-primary" id="comment-badge"></span>' : ''?>
                                     </a>
                                 </li>
                             <? endforeach; ?>
@@ -35,7 +38,13 @@ $adminMenu = $adminMenuObj->getMenu();
                 <h1 id="adminPanelHeader" class="h2" ><?= $adminMenuObj->getTitle($data[0]); ?></h1>
             </div>
             <div id="admin-content">
-                <? view('admin.items.' . $data[0], $data[1] ?? '')->render()?>
+                <?php
+                    if (!file_exists($_SERVER['DOCUMENT_ROOT'] . '/view/admin/items/' . $data[0] . '.php')) {
+                        throw new ItemNotFoundException();
+                    } else {
+                        view('admin.items.' . $data[0], $data[1] ?? '')->render();
+                    }
+                ?>
             </div>
         </main>
     </div>

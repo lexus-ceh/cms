@@ -25,7 +25,7 @@ class Controller
         LengthAwarePaginator::viewFactoryResolver(function () {
             return new PaginatorFactory();
         });
-        $posts = Post::paginate(3);
+        $posts = Post::paginate(3); // TODO: сделать это из конфиг-файла!
         return view('index', $posts);
     }
 
