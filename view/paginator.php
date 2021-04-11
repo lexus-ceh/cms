@@ -3,7 +3,7 @@ $paginator = $data[1]['paginator'] ?? $data['paginator'];
 $elements = $data[1]['elements'] ?? $data['elements'];
 if ($paginator->hasPages()): ?>
     <nav>
-        <ul class="pagination">
+        <ul class="pagination justify-content-center">
             <!--  -- Previous Page Link --  -->
             <? if ($paginator->onFirstPage()): ?>
                 <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">

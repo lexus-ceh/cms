@@ -3,11 +3,13 @@
 
 namespace App\Controller;
 
+use App\Factory\PaginatorFactory;
 use App\Model\Comment;
 use App\Model\Roles;
 use App\Model\Roles_user;
 use App\Model\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class AdminController
@@ -22,11 +24,33 @@ class AdminController
 
     public function admin2($item)
     {
+        $item = explode('?', $item)[0];
+
+        LengthAwarePaginator::currentPageResolver(function ($pageName) {
+            return $_GET[$pageName] ?? '1';
+        });
+
+        LengthAwarePaginator::currentPathResolver(function () {
+            return explode('?', $_SERVER['REQUEST_URI'])[0];
+        });
+
+        LengthAwarePaginator::viewFactoryResolver(function () {
+            return new PaginatorFactory();
+        });
+
         $data[] = $item;
         if (isUserRole('administrator') !== false || isUserRole('moderator') !== false) {
             if($item == 'users') {
                 $users = $this->adminAllUsers();
                 $data[] = $users;
+            }
+            if($item == 'allcomments') {
+                $allComments = $this->adminGetComments();
+                $data[] = $allComments;
+            }
+            if($item == 'unapprovedcomments') {
+                $unapprovedComments = $this->adminGetComments(0);
+                $data[] = $unapprovedComments;
             }
             return view('admin.admin2', $data);
         }
@@ -119,22 +143,22 @@ class AdminController
         header('Location: /');
     }
 
-    public function adminAllComments()
+    public function adminGetComments($isModerated = null)
     {
         if (isUserRole('administrator') !== false || isUserRole('moderator') !== false) {
-            return json_encode(Comment::select('comments.id', 'comment', 'create_date', 'is_moderated', 'users.name', 'posts.header')
+            return Comment::select('comments.id', 'comment', 'create_date', 'is_moderated', 'users.name', 'posts.header')
                 ->leftJoin('users', 'comments.users_id', '=', 'users.id')
                 ->leftJoin('posts', 'comments.posts_id', '=', 'posts.id')
-                ->where(function (Builder $query) {
-                    if (isset($_POST['type']) && $_POST['type'] == 1) {
-                        return $query->where('is_moderated', '=', 0);
+                ->where(function (Builder $query) use ($isModerated) {
+                    if (isset($isModerated)) {
+                        return $query->where('is_moderated', '=', $isModerated);
                     }
                     return $query;
                 })
-                ->get()
-            );
+                ->paginate(5); //TODO: Сделать через конфиг-файл!
         }
         header('Location: /');
     }
+
 
 }

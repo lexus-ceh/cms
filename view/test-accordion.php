@@ -1,12 +1,14 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/header.php';
 ?>
+<script src="/js/accordion.js"></script>
+
 <div class="container">
 <div class="accordion" id="accordionExample">
     <? foreach ($data as $comment): ?>
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?=$comment['id']?>" aria-expanded="false" aria-controls="collapse<?=$comment['id']?>">
                 <div class="container-fluid">
                     <div class="row justify-content-start">
                         <div class="col-4 align-self-center">
@@ -23,13 +25,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/header.php';
                         </div>
                     </div>
                 </div>
-
-
-
             </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
+        <div id="collapse<?=$comment['id']?>" class="accordion-collapse collapse justify-content-center" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body col-10">
                 <?= htmlspecialchars($comment['comment']);?>
             </div>
         </div>
@@ -37,4 +36,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/header.php';
     <? endforeach; ?>
 </div>
 </div>
+
+<script>launchAccording()</script>
 
