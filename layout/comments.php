@@ -17,11 +17,11 @@
                                 </div>
                                 <? if ($comment['is_moderated'] == 0):?>
                                 <div class="col-1 p-0">
-                                    <a href="#" type="button" class="btn-close btn-close-green justify-content-end" aria-label="Approve"></a>
+                                    <a href="#" type="button" class="btn-close btn-close-green justify-content-end" onclick="approveComment(<?=$comment['id']?>)" aria-label="Approve"></a>
                                 </div>
                                 <? endif; ?>
                                 <div class="col-1 p-0">
-                                    <a href="#" type="button" class="btn-close btn-close-red justify-content-end" aria-label="Delete"></a>
+                                    <a href="#" type="button" class="btn-close btn-close-red justify-content-end" onclick="deleteComment(<?=$comment['id']?>)" aria-label="Delete"></a>
                                 </div>
                             </div>
                         </div>

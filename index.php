@@ -47,6 +47,9 @@ $router->post('/admin/api/roles', AdminController::class . '@adminAllRoles');
 $router->post('/admin/api/user-change', AdminController::class . '@adminUserChange');
 $router->post('/admin/api/num-comments', AdminController::class . '@adminNumComments');
 $router->post('/admin/api/comments', AdminController::class . '@adminAllComments');
+$router->post('/admin/api/approve-comment', AdminController::class . '@adminApproveComment');
+$router->post('/admin/api/delete-comment', AdminController::class . '@adminDeleteComment');
+
 
 // ==============================================================
 

@@ -160,5 +160,27 @@ class AdminController
         header('Location: /');
     }
 
+    public function adminApproveComment()
+    {
+        if (isUserRole('administrator') !== false || isUserRole('moderator') !== false) {
+            $id = (int) $_POST['comment_id'] ?? 0;
+            $comment = Comment::find($id);
+            $comment->is_moderated = 1;
+            $comment->save();
+            return json_encode('success');
+        }
+        header('Location: /');
+    }
+
+    public function adminDeleteComment()
+    {
+        if (isUserRole('administrator') !== false || isUserRole('moderator') !== false) {
+            $id = (int) $_POST['comment_id'] ?? 0;
+            Comment::destroy($id);
+            return json_encode('success');
+        }
+        header('Location: /');
+    }
+
 
 }

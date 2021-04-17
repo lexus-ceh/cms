@@ -1,35 +1,70 @@
 // https://www.w3.org/TR/wai-aria-practices/examples/tabs/tabs-1/js/tabs.js
 
+function approveComment(commentId)
+{
+    data = {'comment_id': commentId};
+
+    const promise = $.ajax({
+        url: "/admin/api/approve-comment",
+        method: "POST",
+        data: data,
+        dataType: 'json',
+    })
+    promise.then(response => {
+        if (response === 'success') {
+            document.location.reload();
+        }
+    });
+
+}
+
+function deleteComment(commentId)
+{
+    data = {'comment_id': commentId};
+
+    const promise = $.ajax({
+        url: "/admin/api/delete-comment",
+        method: "POST",
+        data: data,
+        dataType: 'json',
+    })
+    promise.then(response => {
+        if (response === 'success') {
+            document.location.reload();
+        }
+    });
+}
+
 function launchAccording() {
     // var accordionlist = document.querySelectorAll('[role="tablist"]')[0];
-    var accordionHeader;
-    var accordionText;
+    let accordionHeader;
+    let accordionText;
 
     generateArrays();
 
     function generateArrays () {
         accordionHeader = document.querySelectorAll('.accordion-button');
         accordionText = document.querySelectorAll('.accordion-collapse');
-    };
+    }
 
 
     // Bind listeners
     for (let i = 0; i < accordionHeader.length; ++i) {
         addListeners(i);
-    };
+    }
 
     function addListeners (index) {
         accordionHeader[index].addEventListener('click', clickEventListener);
 
         // Build an array with all tabs (<button>s) in it
         accordionHeader[index].index = index;
-    };
+    }
 
     // When a tab is clicked, activateTab is fired to activate it
     function clickEventListener (event) {
-        var accordionHeader = event.target;
+        let accordionHeader = event.target;
         activateAccordion(accordionHeader);
-    };
+    }
 
 
     // Activates any given tab panel
@@ -38,7 +73,7 @@ function launchAccording() {
         // Deactivate all other tabs
         // deactivateAccordion();
 
-        var controls = accordionHeader.getAttribute('aria-controls');
+        let controls = accordionHeader.getAttribute('aria-controls');
 
         // Set the tab as selected
         if (accordionHeader.getAttribute('aria-expanded') === 'false') {
@@ -51,19 +86,6 @@ function launchAccording() {
             document.getElementById(controls).classList.remove('show');
         }
 
-    };
+    }
 
-    // Deactivate all tabs and tab panels
-    function deactivateTabs () {
-        for (t = 0; t < accordionHeader.length; t++) {
-            accordionHeader[t].setAttribute('aria-selected', 'false');
-            accordionHeader[t].classList.remove('active');
-        };
-
-        for (p = 0; p < panels.length; p++) {
-            panels[p].classList.remove('show');
-            panels[p].classList.remove('active');
-        };
-    };
-
-};
+}
