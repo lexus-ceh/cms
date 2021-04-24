@@ -1,6 +1,7 @@
 <?php
 
 use App\Application;
+use App\Controller\CabinetController;
 use App\Controller\Controller;
 use App\Controller\UserController;
 use App\Controller\AdminController;
@@ -36,6 +37,10 @@ $router->get('/admin', AdminController::class . '@admin');
 
 $router->get('/pages/*', PagesController::class . '@pages');
 
+// ============== PERSONAL CABINET ==============
+
+$router->get('/lk/profile', CabinetController::class . '@profile');
+
 // ============== ADMIN PANEL 2 ==================
 
 $router->get('/admin2/*', AdminController::class . '@admin2');
@@ -51,7 +56,7 @@ $router->post('/admin/api/approve-comment', AdminController::class . '@adminAppr
 $router->post('/admin/api/delete-comment', AdminController::class . '@adminDeleteComment');
 
 
-// ==============================================================
+// ===================TESTS===========================================
 
 $router->get('/test-pagination', Controller::class . '@testPagination');
 $router->get('/test-tabs', Controller::class . '@testTabs');
