@@ -39,7 +39,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/header.php';
                         <label for="btn-subscribe" class="col-sm-2 col-form-label">Подписка:</label>
                         <div class="col-sm-5">
 <!--                            <input type="button" class="form-control" id="subscribeButton">-->
-                            <button id="btn-subscribe" type="button" class="btn btn-danger col-6">Подписаться</button>
+                            <button id="btn-subscribe" type="button" class="btn <?= !isSubscriber() ? 'btn-danger' : 'btn-outline-secondary'?> col-6"><?= !isSubscriber() ? 'Подписаться' : 'Отменить подписку'?></button>
                         </div>
                     </div>
                 </div>
@@ -64,8 +64,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/header.php';
     </div>
 </div>
 
-<script src="/js/profile.js" ></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="/js/subscribe.js"></script>
+<script src="/js/profile.js"></script>
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/footer.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/basic/footer.php';
 ?>

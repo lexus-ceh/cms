@@ -3,6 +3,7 @@
 use App\Application;
 use App\Controller\CabinetController;
 use App\Controller\Controller;
+use App\Controller\NotificationController;
 use App\Controller\UserController;
 use App\Controller\AdminController;
 use App\Controller\PostsController;
@@ -54,6 +55,8 @@ $router->post('/admin/api/num-comments', AdminController::class . '@adminNumComm
 $router->post('/admin/api/comments', AdminController::class . '@adminAllComments');
 $router->post('/admin/api/approve-comment', AdminController::class . '@adminApproveComment');
 $router->post('/admin/api/delete-comment', AdminController::class . '@adminDeleteComment');
+$router->post('/api/subscription-change', NotificationController::class . '@changeSubscription');
+
 
 
 // ===================TESTS===========================================

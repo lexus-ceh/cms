@@ -7,5 +7,5 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/header.php';
 </div>
 
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/footer.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/layout/basic/footer.php';
 ?>

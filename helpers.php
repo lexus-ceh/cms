@@ -28,3 +28,11 @@ function isUserRole($role)
 
     return false;
 }
+
+function isSubscriber()
+{
+    if (isLogined()) {
+        return $subscriber = \App\Model\Subscriber::where('email', $_SESSION['email'])->first();
+    }
+    return false;
+}
